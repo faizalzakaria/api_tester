@@ -22,13 +22,19 @@ module ApiTester
     def post(api, body)
       resp = connection.post do |req|
         req.url api
+        req.options.timeout = 3600
+        req.options.open_timeout = 3600
         req.headers['Content-Type'] = headers
         req.body = body
       end
     end
 
     def pretty_print(resp)
-      puts JSON.pretty_generate(JSON.parse(resp.body))
+      begin
+        puts JSON.pretty_generate(JSON.parse(resp.body))
+      rescue
+        puts resp.body
+      end
     end
   end
 end
