@@ -1,6 +1,6 @@
 # ApiTester
 
-TODO: Write a gem description
+API tester library.
 
 ## Installation
 
