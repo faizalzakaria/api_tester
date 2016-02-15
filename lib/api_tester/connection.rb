@@ -17,13 +17,13 @@ module ApiTester
     end
 
     [:post, :get, :put, :delete].each do |method|
-      define_method "#{method}" do |api, body, params = nil|
+      define_method "#{method}" do |api, body, params = nil, header = nil|
         connection.send("#{method}") do |req|
           req.url api, params
           req.options.timeout = 3600
           req.options.open_timeout = 3600
           req.body = body.to_json if body
-          req.headers = headers
+          req.headers = header.nil? ? header_json : header_json.merge(header)
         end
       end
     end
@@ -34,10 +34,6 @@ module ApiTester
       rescue
         puts resp.body
       end
-    end
-
-    def headers
-      header_json
     end
 
     private
