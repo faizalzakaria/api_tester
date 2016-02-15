@@ -19,9 +19,9 @@ module ApiTester
     yield(configuration) if block_given?
   end
 
-  def self.post(api, body)
+  def self.post(api, body, params = [])
     puts api
-    resp = connection.post(api, body)
+    resp = connection.post(api, body, params)
     connection.pretty_print(resp)
   end
 
